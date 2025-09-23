@@ -70,7 +70,7 @@ public class CustomToolCallResult
     [JsonIgnore]
     internal object? RawContent { get; set; }
     
-    private string SetContent(object? content, FunctionResultSetContentModes mode = FunctionResultSetContentModes.Serialize)
+    private string SetContent(object? content, FunctionResultSetContentModes mode = FunctionResultSetContentModes.Passthrough)
     {
         ContentJsonType = content?.GetType();
         RawContent = content;
@@ -270,7 +270,7 @@ public class FunctionResult
     [JsonIgnore]
     internal IEnumerable<IFunctionResultBlock>? RawContentBlocks { get; set; }
 
-    private string SetContent(object? content, FunctionResultSetContentModes mode = FunctionResultSetContentModes.Serialize)
+    private string SetContent(object? content, FunctionResultSetContentModes mode = FunctionResultSetContentModes.Passthrough)
     {
         ContentJsonType = content?.GetType();
         RawContent = content;
