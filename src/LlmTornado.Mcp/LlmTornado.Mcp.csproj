@@ -5,14 +5,14 @@
         <Nullable>enable</Nullable>
         <TargetFramework>net8.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.6</Version>
+        <Version>1.0.7</Version>
         <WarningLevel>0</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\LlmTornado\LlmTornado.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="ModelContextProtocol" Version="[0.3.0-preview.3, )" />
+      <PackageReference Include="ModelContextProtocol" Version="[0.4.0-preview.1, )" />
     </ItemGroup>
 
     <PropertyGroup>
