@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -216,7 +216,7 @@ public class ChatEndpoint : EndpointBase
             {
                 Tool? match = request.Tools.FirstOrDefault(x => string.Equals(x.Function?.Name, toolCall.FunctionCall.Name));
 
-                if (match?.Delegate is null)
+                if (match is null || (match.Delegate is null && match.RemoteTool is null))
                 {
                     continue;
                 }
@@ -339,7 +339,7 @@ public class ChatEndpoint : EndpointBase
     /// <returns>The <see cref="ChatResult" /> with the API response.</returns>
     public Task<ChatResult?> CreateChatCompletion(params ChatMessage[] messages)
     {
-        ChatRequest request = new ChatRequest(DefaultChatRequestArgs)
+        ChatRequest request = new(DefaultChatRequestArgs)
         {
             Messages = messages.ToList(),
             Stream = null

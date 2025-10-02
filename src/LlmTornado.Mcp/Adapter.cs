@@ -1,4 +1,3 @@
-﻿using LlmTornado.Code;
 using LlmTornado.Common;
 using ModelContextProtocol;
 using ModelContextProtocol.Client;
@@ -16,9 +15,11 @@ public static class McpExtensions
         return converted;
     }
 
-    public static Tool ToTornadoTool(this McpClientTool tool)
+    private static Tool ToTornadoTool(this McpClientTool tool)
     {
-        Tool tornadoTool = new Tool(new ToolFunction(tool.Name, tool.Description, tool.JsonSchema))
+        ToolFunction toolFunction = new(tool.Name, tool.Description, tool.JsonSchema);
+        
+        Tool tornadoTool = new(toolFunction)
         {
             RemoteTool = new McpTool
             {

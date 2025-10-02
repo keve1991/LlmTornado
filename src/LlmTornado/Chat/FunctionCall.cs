@@ -205,6 +205,49 @@ public class FunctionCall
         {
             return new MethodInvocationResult(new Exception("Tool is null, nothing to invoke"));
         }
+        
+        if (Tool.Delegate is null && Tool.RemoteTool is not null)
+        {
+            try
+            {
+                Dictionary<string, object?>? args = null;
+                if (!string.IsNullOrWhiteSpace(data) && data != "{}")
+                {
+                    args = JsonConvert.DeserializeObject<Dictionary<string, object?>>(data);
+                }
+                
+                await ResolveRemote(args, null, null, true, CancellationToken.None).ConfigureAwait(false);
+                
+                if (Result is not null)
+                {
+                    MethodInvocationResult remoteResult = new(Result.Content)
+                    {
+                        InvocationSuccessful = Result.InvocationSucceeded ?? true
+                    };
+                    
+                    if (!remoteResult.InvocationSuccessful)
+                    {
+                        remoteResult.InvocationException = new Exception(Result.Content);
+                    }
+
+                    LastInvocationResult = remoteResult;
+                    return remoteResult;
+                }
+
+                return new MethodInvocationResult(new Exception("Remote tool invocation returned no result"));
+            }
+            catch (Exception ex)
+            {
+                MethodInvocationResult errorResult = new(ex);
+                LastInvocationResult = errorResult;
+                return errorResult;
+            }
+        }
+
+        if (Tool.Delegate is null)
+        {
+            return new MethodInvocationResult(new Exception("Tool has no delegate or remote tool attached"));
+        }
 
         MethodInvocationResult invocationResult = await Clr.Invoke(Tool.Delegate, Tool.DelegateMetadata, data).ConfigureAwait(false);
 

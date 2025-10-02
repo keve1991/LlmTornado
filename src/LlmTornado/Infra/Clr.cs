@@ -263,7 +263,7 @@ internal static class Clr
 
         object? result = null;
         List<object?> args = [];
-        string normalizedData = data ?? "{}";
+        string normalizedData = string.IsNullOrWhiteSpace(data) ? "{}" : data;
         JObject jObject;
         
         try
