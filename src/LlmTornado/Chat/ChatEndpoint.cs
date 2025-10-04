@@ -208,7 +208,7 @@ public class ChatEndpoint : EndpointBase
             return structuredResult;
         }
         
-        if ((request.Tools?.Any(x => x.Delegate is not null) ?? false) && contentSource.ToolCalls?.Count > 0)
+        if ((request.Tools?.Any(x => x.Delegate is not null || x.RemoteTool is not null) ?? false) && contentSource.ToolCalls?.Count > 0)
         {
             List<Task> tasks = [];
                 
