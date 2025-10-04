@@ -5,6 +5,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <LangVersion>preview</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>1.0.0-preview.1</Version>
         <Title>LlmTornado.Agents</Title>
         <PackageProjectUrl>https://llmtornado.ai</PackageProjectUrl>
         <RepositoryUrl>https://github.com/lofcz/LlmTornado</RepositoryUrl>
