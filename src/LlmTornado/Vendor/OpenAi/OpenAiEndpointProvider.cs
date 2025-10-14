@@ -312,6 +312,12 @@ public class OpenAiEndpointProvider : BaseEndpointProvider, IEndpointProvider, I
                 }
             }
             
+            // Always set usage if present
+            if (res.Usage?.TotalTokens > 0)
+            {
+                usage ??= res.Usage;
+            }
+            
             if (request.StreamOptions?.IncludeUsage ?? false)
             {
                 if (usage is null && res.Choices is null || res.Choices?.Count is 0)
